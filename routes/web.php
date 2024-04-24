@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ToDoListController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,30 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
-Route::get('/beranda', function () {
-    return view('coy');
-});
-Route::get('/post.html', function () {
-    return view('post');
-});
-Route::get('/about.html', function () {
-    return view('about');
-});
-Route::get('/contact.html', function () {
-    return view('contact');
-});
-// Route::get('/', function () {
-//     return view('articles');
-// });
-// Route::get('articles/{article}', function ($slug)) {
-//     $path = __DIR__ . . "/../resources/articles/{$slug}.html";
+Route::get('/', [ToDoListController::class, 'index']);
 
-//     $article = file_get_contents($path);
+Route::post('/', [ToDoListController::class, 'store']);
 
-//     return view('article',[
-//         'article'=>$article
-//     ]);
-// };
+Route::delete('/tasks/{id}', [ToDoListController::class, 'destroy'])->name('tasks.destroy');
+
+Route::get('/about', function () {
+    return view('welcome');
+});
+
+
+// Route::post('/tambahTask', [TodoTaskController::class, 'addTask']);
